@@ -1,6 +1,7 @@
 package uz.salimovdeveloper.retrofitpost.retrofit
 
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import uz.salimovdeveloper.retrofitpost.models.MyTodoGetResponse
@@ -12,5 +13,5 @@ interface RetrofitService {
     fun getAllTodo():Call<List<MyTodoGetResponse>>
 
     @POST("plan/")
-    fun addAllTodo(myTodoPostRequest: MyTodoPostRequest):Call<MyTodoGetResponse>
+    fun addAllTodo(@Body myTodoPostRequest: MyTodoPostRequest):Call<MyTodoGetResponse>
 }

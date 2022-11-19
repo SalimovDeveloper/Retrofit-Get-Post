@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import uz.salimovdeveloper.retrofitpost.databinding.ActivityMainBinding
 import uz.salimovdeveloper.retrofitpost.databinding.ItemDialogBinding
+import uz.salimovdeveloper.retrofitpost.models.MyTodoGetResponse
 import uz.salimovdeveloper.retrofitpost.models.MyTodoPostRequest
 import uz.salimovdeveloper.retrofitpost.retrofit.ApiClient
 
@@ -38,6 +43,29 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 ApiClient.getRetrofitService().addAllTodo(myTodoPostRequest)
+                    .enqueue(object :Callback<MyTodoGetResponse>{
+                        override fun onResponse(
+                            call: Call<MyTodoGetResponse>,
+                            response: Response<MyTodoGetResponse>
+                        ) {
+                            if (response.isSuccessful){
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "${response.body()?.sarlavha} saqlandi",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                getData()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<MyTodoGetResponse>, t: Throwable) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Internet bilan muammo bor",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
             }
         }
 
@@ -55,6 +83,5 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        TODO("Not yet implemented")
     }
 }
