@@ -12,5 +12,5 @@ interface RetrofitService {
     fun getAllTodo():Call<List<MyTodoGetResponse>>
 
     @POST("plan/")
-    fun addAllTodo(myTodoPostRequest: MyTodoPostRequest):MyTodoGetResponse
+    fun addAllTodo(myTodoPostRequest: MyTodoPostRequest):Call<MyTodoGetResponse>
 }
