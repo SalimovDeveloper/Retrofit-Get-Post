@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Retrofit Post</string>
+    <string name="ma_lumot_qo_shish">Ma\'lumot qo\'shish</string>
+    <string name="title">Title</string>
+    <string name="name">Name</string>
+    <string name="date">Date</string>
+    <string name="save">Save</string>
+</resources>
