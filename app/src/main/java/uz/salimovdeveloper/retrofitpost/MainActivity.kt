@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         getData()
 
-        postData()
     }
 
     private fun getData() {
@@ -90,6 +89,7 @@ class MainActivity : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 getData()
+                                dialog.cancel()
                             }
                         }
 
