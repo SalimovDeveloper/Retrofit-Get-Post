@@ -15,10 +15,12 @@ import uz.salimovdeveloper.retrofitpost.databinding.ItemDialogBinding
 import uz.salimovdeveloper.retrofitpost.models.MyTodoGetResponse
 import uz.salimovdeveloper.retrofitpost.models.MyTodoPostRequest
 import uz.salimovdeveloper.retrofitpost.retrofit.ApiClient
+import uz.salimovdeveloper.retrofitpost.viewmodel.MyViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var rvAdapter: RvAdapter
+    private lateinit var myViewModel: MyViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,26 +32,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        ApiClient.getRetrofitService().getAllTodo()
-            .enqueue(object : Callback<List<MyTodoGetResponse>> {
-                override fun onResponse(
-                    call: Call<List<MyTodoGetResponse>>,
-                    response: Response<List<MyTodoGetResponse>>
-                ) {
-                    if (response.isSuccessful){
-                        rvAdapter = RvAdapter(response.body()!!)
-                        binding.myRecyc.adapter = rvAdapter
-                    }
-                }
-
-                override fun onFailure(call: Call<List<MyTodoGetResponse>>, t: Throwable) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Internet bilan muammo!!!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            })
+        myViewModel = MyViewModel()
+        myViewModel.getMyTodo()
+            .observe(this){
+                rvAdapter = RvAdapter(it)
+                binding.myRecyc.adapter = rvAdapter
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
